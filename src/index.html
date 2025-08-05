@@ -1,32 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus App</title>
-        <script type="module" src="/main.js" defer></script>
-    </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实时录音频谱分析</title>
+  <link rel="stylesheet" href="audgui.css">
+</head>
+<body>
+  <h2>实时<font color="yellow">录音</font>🎤<font color="aqua">频谱</font>分析</h2>
+    <div id="floatBar">
+    <button id="startRecord" style="background-color: #00FF00;">录音&#x1F4FC;</button>
+    <button id="stopRecord" disabled style="background-color: #444;">停止&#x23F8;</button><!--⏸
+-->    <button id="saveRecord" disabled style="background-color: #000021; color:white;">保存&#x1F4BE;</button></div>
 
-    <body>
-        <main class="container">
-            <h1>Welcome to PakePlus</h1>
-            <form class="row" id="greet-form">
-                <input id="inputValue" placeholder="Enter a something..." />
-            </form>
-            <div class="resultBox">
-                <span>result: </span>
-                <span id="result"></span>
-            </div>
-            <div class="invokeBox">
-                <button id="openUrl">open_url_browser</button>
-                <button id="openUrlNew">open_url_new</button>
-                <button id="runCommand">run_command</button>
-                <button id="downloadFile">download_file</button>
-                <button id="getExeDir">get_exe_dir</button>
-                <button id="getEnvVar">get_env_var</button>
-                <button id="findPort">find_port</button>
-            </div>
-        </main>
-    </body>
+  <div class="controls" style="display: flex; align-items: center; width: 99vw; background: rgba(255,255,255, 0.01);">
+    <!--font id="corner-spaces">&nbsp;&nbsp;&nbsp;</font-->
+    <span id="recordStatus" class="status-phone" onclick="togglePhoneTick()" title="点击切换状态">&#x2705;</span>
+    <div style="flex-grow: 1; min-width: 0;"></div>
+    <button id="btnFX" disabled>&lt;FX&gt;</button>
+    <input id="slideFX" type="range" title="改变图像滚动方向" min="0" max="800" value="400" step="100"  style="width: 100px;"/>
+    <div style="flex-grow: 1; min-width: 0;"></div>
+    <span class="icon-setting" onclick="toggleSettings()" style="cursor: pointer;" title="点击进入或退出参数设置...">&#x23F7;</span>
+  </div>
+  
+  <div id="settingsPanel" class="settings" style="display:none; width:100vw; border:1px dotted yellow; background-color:#1e2e4f">
+    <div class="control-group">
+      <table border="0"><!---0表格无边框, >=1有边框--->    
+        <tr>
+          <td>频率范围</td>
+          <td><input type="number" id="freqMin" value="1" /> 
+           to <input type="number" id="freqMax" value="8000" style="color:#ff0;"/>Hz</td>
+           <td>&nbsp;</td>
+        </tr>      
+        <tr>
+          <td>声强范围</td>
+          <td><input type="number" id="magMin" style="color:cyan;" value="-40" /> 
+           to <input type="number" id="magMax" style="color: red;" value="40" />dB</td>
+           <td>&nbsp;</td>
+        </tr>      
+        <tr>
+          <td>滚动速度</td>
+          <td>快
+            <input type="range" id="rollSpeed" title="图像滚动速度" min="10" max="1200" value="800" step="10" style="vertical-align: middle; width: 120px;" />
+            <span style="vertical-align: middle; margin-left: 0px;">慢</span></td>
+           <td>&nbsp;</td>
+        </tr>      
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2" style="text-align: end;"><button style="background-color: #ACFFBD;" onclick="updateParams()">&nbsp;&nbsp;Apply&nbsp;&#8626;&nbsp;</button>
+          </td>
+        </tr>
+      </table>
+    </div>  
+  </div>  
+
+
+  <div class="canvas-container">
+    <canvas id="magPlot_H1" width="200" height="400" style="display:none"></canvas>
+    <canvas id="spectHorRoll" width="800" height="400"></canvas>
+    <canvas id="magPlot_H2" width="200" height="400"></canvas>
+  </div>
+
+  <div class="canvas-container2">
+    <canvas id="magPlot_V1" width="1080" height="200"></canvas>
+    <canvas id="spectVerRoll" width="1080" height="800"></canvas>
+    <canvas id="magPlot_V2" width="1080" height="200" style="display:none"></canvas>
+  </div> 
+  
+  <p><script src="audrec.js"></script></p>  
+  <center>Powered by <font class="whl">Wh<font size="1" >@</font>leLink</font>🐋，
+  <!---copy;<em>From</em> 2025&#x2297.---></center>
+</body>
 </html>
