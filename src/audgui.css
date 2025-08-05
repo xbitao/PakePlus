@@ -1,0 +1,333 @@
+﻿/*====================================
+         CSS 样式表详细注释
+====================================*/
+
+/* 
+1. 全局样式 (body)
+   - 设置页面的基础外观和布局。
+*/
+body {
+  /* 使用无衬线字体，现代且易读 */
+  font-family: sans-serif;
+  /* 深色背景，营造“分析仪”的科技感 */
+  background-color: #111;
+  /* 白色文字，与深色背景形成高对比度 */
+  color: white;
+  /* 内容居中对齐 */
+  text-align: center;
+  /* 移除浏览器默认的边距 */
+  margin: 0;
+  /* 为内容添加内边距，使其不紧贴边缘 */
+  padding: 2px;
+}
+
+/* 
+2. 状态图标 - 麦克风 (status-phone)
+   - 通过 CSS 伪元素在“状态”文本后添加一个麦克风符号。
+*/
+.status-phone::after {
+  /* 使用 Unicode 字符 '1F3A4' 作为麦克风图标 */
+  content: "\1F3A4";; 
+  /* 图标大小 */
+  font-size: 15px;
+  /* 右侧留一点空白 */
+  margin-right: 0px;
+  /* 鼠标悬停时显示为手型光标，提示可点击 */
+  cursor: pointer;
+}
+
+/* 
+3. 设置图标 - 齿轮 (icon-setting)
+   - 通过 CSS 伪元素在“设置”文本前添加一个齿轮符号。
+*/
+.icon-setting::before {
+  /* 使用 Unicode 字符 '\2699\fe0f' 作为齿轮图标（\fe0f 是变体选择符，确保显示为彩色 Emoji） */
+  content: "\2699\fe0f"; 
+  /* 图标大小 */
+  font-size: 16px;
+  /* 右侧留一点空白 */
+  margin-right: 1px;
+  /* 鼠标悬停时显示为手型光标，提示可点击 */
+  cursor: pointer;
+}
+
+/* 
+4. 设置图标 - 主样式 (icon-setting)
+   - 为包含“设置”文本的 span 元素本身设置样式。
+*/
+.icon-setting {
+  /* 文本大小 */
+  font-size: 16px;
+  /* 右侧留一点空白 */
+  margin-right: 1px;
+  /* 鼠标悬停时显示为手型光标，提示可点击 */
+  cursor: pointer;
+} 
+
+/* 
+5. 画布容器 - 横屏模式 (canvas-container)
+   - 用于在横屏（桌面）模式下，水平排列三个画布（左柱状图、主频谱图、右柱状图）。
+*/
+.canvas-container {
+  /* 边框：1像素宽的白色点线，用于视觉分隔 */
+  border: 1px dotted white;
+  /* 布局：使用 Flexbox 布局，子元素水平排列 */
+  display: flex;
+  /* 宽度：占满视口宽度 */
+  width: 100vw;           
+  /* 高度：占视口高度的90% */
+  height: 90vh;
+  /* 垂直对齐：子元素沿容器底部对齐 */
+  /*align-items: bottom;*/
+  /* 溢出：隐藏超出容器的内容 */
+  overflow: hidden;
+  /* 间距：子元素之间无间隙 */
+  gap: 0; 
+}
+
+/* 
+6. 画布容器 - 子元素通用样式 (canvas-container canvas)
+   - 为 .canvas-container 内的所有 canvas 子元素设置通用样式。
+*/
+.canvas-container canvas {
+  /* 显示：确保 canvas 作为块级元素显示 */
+  display: block;
+  /* 高度：填满父容器的全部高度 */
+  height: 100%; 
+  /* 最小宽度：保证每个 canvas 有一个最小宽度，防止被过度压缩 */
+  min-width: 100px; 
+}
+
+/* 
+7. 主频谱图 - 走马灯 (spectHorRoll)
+   - 专门针对 ID 为 "spectHorRoll" 的 canvas 进行样式设置。
+*/
+#spectHorRoll {
+  /* Flex 属性：在 flex 容器中，该元素占据 4 份宽度，而其他两个各占 1 份，形成 1:4:1 的比例 */
+  flex: 4 1 0; 
+  /* 边框：1像素宽的白色点线 */
+  border: 1px dotted white;    
+  /* 透明度：设置为 0.7，使其略带半透明效果 */
+  opacity: 0.7; 
+  /* 背景颜色：设置为完全透明的 rgba 值。原始注释 "有颜色点线边框 */ /*是一个语法错误，应被忽略。
+     正确的注释应为 "background-color: transparent;" */
+  background-color: rgba(255, 255, 255, 0); 
+}
+
+/* 
+8. 柱状图 - 水平模式 (magPlot_H1, magPlot_H2)
+   - 为横屏模式下的左右两个柱状图设置样式。
+   - 在 .canvas-container 的 Flex 布局中，它们各占 1 份宽度。
+*/
+#magPlot_H1,
+#magPlot_H2 {
+  /* Flex 属性：在 flex 容器中，各占据 1 份宽度 */
+  flex: 1 1 0; 
+}
+
+/* 
+9. 画布容器 - 竖屏模式 (canvas-container2)
+   - 用于在竖屏（手机）模式下，垂直排列三个画布（上柱状图、主瀑布图、下柱状图）。
+*/
+.canvas-container2 {
+  /* 边框：1像素宽的白色点线，用于视觉分隔 */
+  border: 1px dotted white;
+  /* 布局：使用 Flexbox 布局，子元素垂直排列 */
+  display: flex;
+  flex-direction: column; 
+  /* 宽度：占满视口宽度 */
+  width: 100vw;           
+  /* 高度：占视口高度的96% */
+  height: 96vh;           
+  /* 盒模型：使用 border-box，使得 padding 和 border 包含在 width 和 height 内 */
+  box-sizing: border-box; 
+}
+
+/* 
+10. 画布容器2 - 子元素通用样式 (magPlot_V1, magPlot_V2, spectVerRoll)
+    - 为 .canvas-container2 内的所有 canvas 子元素设置通用样式。
+*/
+#magPlot_V1,
+#magPlot_V2,
+#spectVerRoll {
+  /* 宽度：占满父容器的全部宽度 */
+  width: 100%;            
+  /* 防止压缩：在空间不足时，不缩小自身尺寸 */
+  flex-shrink: 0;         
+}
+
+/* 
+11. 柱状图 - 竖直模式 (magPlot_V1, magPlot_V2)
+    - 为竖屏模式下的上下两个柱状图设置高度。
+    - 通过将 height 设为 0 并配合 flex: 1，实现与 #spectVerRoll 的 1:4 高度比例。
+*/
+#magPlot_V1,
+#magPlot_V2 {
+  /* 高度：初始为 0，其实际高度由 flex 属性决定 */
+  height: 0;
+  /* Flex 属性：占据 1 份高度 */
+  flex: 1; 
+}
+
+/* 
+12. 瀑布图 - 竖屏模式 (spectVerRoll)
+    - 专门针对 ID 为 "spectVerRoll" 的 canvas 进行样式设置。
+*/
+#spectVerRoll {
+  /* 边框：1像素宽的白色点线 */
+  border: 1px dotted white; 
+  /* 高度：初始为 0，其实际高度由 flex 属性决定 */
+  height: 0;
+  /* Flex 属性：占据 4 份高度 */
+  flex: 4; 
+}
+    /* 浮动工具栏 - 可拖动容器 */
+ #floatBar {
+    position: fixed; /* 关键：脱离文档流，相对于视口定位 */
+    bottom: 200px;
+    right: 200px; 
+    background-color: rgba(249, 249, 249, 0.01); /* R G B A */
+    /*                透明度：0 = 完全透明，1 = 完全不透明 */
+    border: 0px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    padding: 8px;
+    display: flex;
+    gap: 1px;
+    z-index: 10000;
+    
+    flex-direction: row; /* 按钮横向排列 */
+    align-items: center;
+    cursor: move; /* 显示为可拖动样式 */
+    user-select: none; /* 防止拖动时选中文本 */
+    }
+        /* 按钮样式 */
+  #floatBar button {
+      padding: 3px 8px;
+      font-size: 14px;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+    }
+/* 
+13. 输入框样式 (input)
+    - 为页面中的所有 input 元素（如数字输入框）设置样式。
+*/
+input {
+  /* 固定宽度 */
+  width: 80px;
+  /* 背景颜色：深灰色 */
+  background: #333;
+  /* 边框：1像素宽的深灰色实线 */
+  border: 1px solid #555;  
+  /* 圆角边框：4像素圆角 */
+  border-radius: 4px;      
+  /* 文字颜色：白色 */
+  color: white;
+  /* 内边距：0像素 */
+  padding: 0px;
+  /* 文字对齐：居中 */
+  text-align: center;
+  /* 字体粗细：加粗 */
+  font-weight: bold;
+}
+
+/* 
+14. 标签样式 (label)
+    - 为 label 元素设置样式（虽然在 HTML 中未使用，但为通用性保留）。
+*/
+label {
+  /* 右侧外边距 */
+  margin-right: 10px;
+  /* 文字颜色：浅灰色 */
+  color: #ccc;
+}
+
+/* 
+15. 按钮通用样式 (button)
+    - 为所有 button 元素设置基础样式。
+*/
+button {
+  /* 文字颜色：黑色 */
+  color: black;
+  /* 边框：无 */
+  border: none;
+  /* 外边距：5像素 */
+  margin: 5px;
+  /* 字体大小 */
+  font-size: 14px;
+  /* 圆角边框：8像素圆角 */
+  border-radius: 8px;
+  /* 鼠标悬停时显示为手型光标 */
+  cursor: pointer; 
+  /* 过渡效果：当 background-color 变化时，使用 0.3 秒的平滑过渡 */
+  transition: background-color 0.3s;
+}
+
+/* 
+16. 按钮悬停样式 (button:hover)
+    - 定义鼠标悬停在按钮上时的样式。
+*/
+button:hover {
+  /* 背景颜色：比默认更深的蓝色 */
+  background-color: #0056b3;
+}
+
+/* 
+17. 按钮禁用样式 (button:disabled)
+    - 定义按钮处于禁用状态时的样式。
+*/
+button:disabled {
+  /* 背景颜色：灰色，表示不可用 */
+  background-color: #555;
+  /* 文字颜色：黑色 */
+  color: black;
+  /* 鼠标光标：显示为“禁止”符号 */
+  cursor: not-allowed;
+}
+
+/* 
+18. 控制面板容器 (controls)
+    - 为包含所有按钮和滑块的顶部控制栏设置样式。
+*/
+.controls {
+  /* 上下外边距 */
+  margin: 5px 0;
+  /* 背景颜色：深灰色 */
+  background: #222;
+  /* 圆角边框：10像素圆角 */
+  border-radius: 10px;
+  /* 布局：使用 Flexbox 布局 */
+  display: inline-flex;
+  /* 换行：允许子元素换行 */
+  flex-wrap: wrap;
+  /* 水平居中：子元素在主轴上居中对齐 */
+  justify-content: center;
+  /* 文本对齐：居中 */
+  text-align: center;
+  /* 间距：子元素之间有 5px 的间隙 */
+  gap: 5px;
+}
+
+/* 
+19. 控制组 (control-group)
+    - 为控制面板内的子分组（如设置面板内的表格）设置样式。
+    - 使用 Flexbox 进行布局。
+*/
+.control-group {
+  /* 布局：使用 Flexbox 布局 */
+  display: flex;  
+  /* 水平居中：子元素在主轴上居中对齐 */
+  justify-content: center;
+  /* 垂直居中：子元素在交叉轴上居中对齐 */
+  align-items: center;
+  /* 间距：子元素之间有 5px 的间隙 */
+  gap: 5px;
+}
+.whl {
+    font-family:  sans-serif; /* 设置字体为 'Whale'，并提供一个无衬线字体作为后备 */
+    color: blue; /* 设置字体颜色为蓝色 */
+    font-style: italic; /* 设置字体样式为意大利体（斜体） */
+}
